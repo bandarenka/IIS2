@@ -28,6 +28,7 @@ public class RecognizerFrame extends JFrame {
 
 		setLayout(new BorderLayout());
 
+		initX();
 		initPanel();
 		initMenu();
 
@@ -39,6 +40,7 @@ public class RecognizerFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				printX();
 			}
 		});
 	}
@@ -56,6 +58,7 @@ public class RecognizerFrame extends JFrame {
 				Main.printArray(Main.muV);
 				String className = Main.getClassOfElement();
 				JOptionPane.showMessageDialog(null, className);
+
 			}
 		});
 	}
@@ -117,11 +120,9 @@ public class RecognizerFrame extends JFrame {
 		radioButtonPanel = new JPanel(new GridLayout(3, 2));
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 1));
-		panel.add(getRadioButtonPanel("1", 0));
-		panel.add(getRadioButtonPanel("2", 1));
-		panel.add(getRadioButtonPanel("3", 2));
-		panel.add(getRadioButtonPanel("4", 3));
-		panel.add(getRadioButtonPanel("5", 4));
+		for (int i = 0; i < Main.attributes.length; ++i) {
+			panel.add(getRadioButtonPanel(Main.attributes[i], i));
+		}
 
 		JPanel buttonPanel = new JPanel();
 
@@ -132,35 +133,48 @@ public class RecognizerFrame extends JFrame {
 		add(panel, BorderLayout.CENTER);
 	}
 
-	private JPanel getRadioButtonPanel(String str, int i){
-		JPanel panel = new JPanel(new GridLayout(1,2));
+	private JPanel getRadioButtonPanel(String str, int i) {
+		JPanel panel = new JPanel(new GridLayout(1, 2));
 		panel.add(new JLabel(str));
 		JRadioButton yesRadioButton = new JRadioButton("Yes");
 		JRadioButton noRadioButton = new JRadioButton("No");
 		yesRadioButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				X[i] = 1;
-				
+
 			}
 		});
 		noRadioButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				X[i] = 0;
-				
+
 			}
 		});
 		ButtonGroup bGroup = new ButtonGroup();
 		bGroup.add(yesRadioButton);
 		bGroup.add(noRadioButton);
+		bGroup.setSelected(noRadioButton.getModel(), true);
 		panel.add(yesRadioButton);
 		panel.add(noRadioButton);
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		return panel;
+	}
+
+	public void initX() {
+		for (int i = 0; i < X.length; ++i)
+			X[i] = 0;
+	}
+
+	public void printX() {
+		for (Integer x : X)
+			System.out.print(x + " ");
+		System.out.println();
 	}
 
 	private Integer[] X = new Integer[Main.n];
@@ -174,7 +188,7 @@ public class RecognizerFrame extends JFrame {
 	private JButton terminate;
 	private JList scriptList;
 
-	public static final int DEFAULT_HEIGHT = 230;
-	public static final int DEFAULT_WIDTH = 600;
+	public static final int DEFAULT_HEIGHT = 500;
+	public static final int DEFAULT_WIDTH = 950;
 
 }

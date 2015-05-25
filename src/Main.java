@@ -8,10 +8,25 @@ import javax.swing.JFrame;
 
 public class Main {
 
+	static String[]  attributes = {
+		"Is heavy", 
+		"Is big", 
+		"Works with (against) liquid", 
+		"Uses electricity", 
+		"Uses much resources", 
+		"Has screen", 
+		"control buttons", 
+		"Much plastic",
+		"Is expensive", 
+		"Is mobile",
+		"Uses sound",
+		"Has remote connection with smth"
+		};
 	static int I = 3;
-	static int n = 5;
+	static int n = attributes.length;
 	static Vector<Vector<Integer[]>> xTeach = new Vector<Vector<Integer[]>>(I);
 
+	
 	Vector<Integer[]> xRecognize = new Vector<Integer[]>();
 	static double[][] b = new double[I][n];
 	static double[][] a = new double[I][n];
@@ -67,8 +82,9 @@ public class Main {
 
 	public static void learn() {
 		for (int i = 0; i < I; ++i) {
+			Vector<Integer[]> Xi = xTeach.elementAt(i);
+			
 			for (int t = 0; t < n; ++t) {
-				Vector<Integer[]> Xi = xTeach.elementAt(i);
 				int mi = Xi.size();
 				double sum = 0;
 				for (Integer[] x : Xi) {
@@ -79,7 +95,7 @@ public class Main {
 		}
 
 		for (int t = 0; t < n; ++t) {
-			double sum = 0;
+			double sum = 0.0;
 			for (int i = 0; i < I; ++i) {
 				sum += b[i][t];
 			}
@@ -110,7 +126,7 @@ public class Main {
 		for (int j = 1; j < n; ++j) {
 			/*sumUp += getSign(x, xToCompare, i) * a[j][i];
 			sumDown += a[j][i];*/
-			sumUp += getSign(x, xToCompare, i) * a[i][j];
+			sumUp += getSign(x, xToCompare, j) * a[i][j];
 			sumDown += a[i][j];
 		}
 
