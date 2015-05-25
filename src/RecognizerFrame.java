@@ -8,7 +8,7 @@ import java.io.File;
 public class RecognizerFrame extends JFrame {
 
 	public RecognizerFrame() {
-		super("Sikuli script executer");
+		super("Binary attributes recognizer");
 
 		// Location and size of frame
 
@@ -20,7 +20,7 @@ public class RecognizerFrame extends JFrame {
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 
-		execute = new JButton("Execute script");
+		execute = new JButton("Execute");
 		terminate = new JButton("Terninate");
 
 		initTerminateButtonListener();
@@ -55,7 +55,8 @@ public class RecognizerFrame extends JFrame {
 				Main.readData();
 				Main.learn();
 				Main.recognize(X);
-				Main.printArray(Main.muV);
+				//Main.printArray(Main.muV);
+				printLog();
 				String className = Main.getClassOfElement();
 				JOptionPane.showMessageDialog(null, className);
 
@@ -127,7 +128,8 @@ public class RecognizerFrame extends JFrame {
 		JPanel buttonPanel = new JPanel();
 
 		buttonPanel.add(execute);
-		buttonPanel.add(terminate);
+		
+		//buttonPanel.add(terminate);
 		panel.add(buttonPanel);
 
 		add(panel, BorderLayout.CENTER);
@@ -177,6 +179,15 @@ public class RecognizerFrame extends JFrame {
 		System.out.println();
 	}
 
+	
+	private void printLog(){
+		System.out.println("Vector of similiarity:");
+		for(int i=0;i<Main.I;++i){
+			String logString = Main.classNames.get(i) + " " +Main.muV[i];
+			System.out.println(logString);
+		}
+		System.out.println();
+	}
 	private Integer[] X = new Integer[Main.n];
 	private String folderPath;
 	private JPanel radioButtonPanel;
@@ -189,6 +200,6 @@ public class RecognizerFrame extends JFrame {
 	private JList scriptList;
 
 	public static final int DEFAULT_HEIGHT = 500;
-	public static final int DEFAULT_WIDTH = 950;
+	public static final int DEFAULT_WIDTH = 1150;
 
 }
